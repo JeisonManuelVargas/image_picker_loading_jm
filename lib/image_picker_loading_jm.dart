@@ -2,7 +2,7 @@ library image_picker_loading_jm;
 
 
 //widget
-export 'src/widget/image_picker_loading_jm_widget.dart';
+export 'src/organisms/image_picker_loading_jm_widget.dart';
 
 
 //Models

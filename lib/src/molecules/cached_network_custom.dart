@@ -25,10 +25,9 @@ class CachedNetworkCustom extends StatelessWidget {
           NetworkImage(url),
         ),
       ),
-      errorWidget: (context, url, error) =>
-          data.imagePickerLoadingJModel.buildBody(
+      errorWidget: (context, url, _) => data.imagePickerLoadingJModel.buildBody(
         context,
-        const AssetImage("assets/image/photo-1503023345310-bd7c1de61c7d.jpeg"),
+        AssetImage(data.imagePickerLoadingJModel.imageError),
       ),
     );
   }

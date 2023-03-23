@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker_loading_jm/src/atoms/build_body_asset.dart';
 import 'package:image_picker_loading_jm/src/atoms/image_picker_loading_provider.dart';
 import 'package:image_picker_loading_jm/src/models/image_picker_loading_jm_model.dart';
-import 'package:image_picker_loading_jm/src/organisms/cached_network_custom.dart';
+import 'package:image_picker_loading_jm/src/molecules/cached_network_custom.dart';
 
 class ImagePickerLoadingJM extends StatelessWidget {
   final ImagePickerLoadingJModel imagePickerLoadingJModel;
@@ -22,7 +23,7 @@ class ImagePickerLoadingJM extends StatelessWidget {
   Widget _handledGetBody(TypeImage typeImage) {
     switch (typeImage) {
       case TypeImage.assets:
-        return Container();
+        return const BuildBodyAsset();
       case TypeImage.network:
         return const CachedNetworkCustom();
     }
