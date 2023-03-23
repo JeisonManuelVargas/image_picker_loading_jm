@@ -30,7 +30,7 @@ import 'package:image_picker_loading_jm/image_picker_loading_jm.dart';
          ),
        ),
      );
-    ```
+```
 
 ## parameters
 
