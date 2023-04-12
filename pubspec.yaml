@@ -1,7 +1,6 @@
 name: image_picker_loading_jm
 description: This package allows us to easily use the libraries already created and published in dart.dev "shimmer" and "cached_network_image".
 version: 0.0.2
-authors: Jeison Manuel Vargas Vargas
 homepage:
 
 environment:
