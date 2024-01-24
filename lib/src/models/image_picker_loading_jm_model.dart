@@ -31,6 +31,7 @@ bool _isNetwork(String image, TypeImage typeImage) {
   if (typeImageValidate) return image.isNetworkImage;
   return !image.isNetworkImage;
 }
+
 String _isNetworkMessage(TypeImage typeImage) {
   bool typeImageValidate = typeImage == TypeImage.network;
   if (typeImageValidate) return isNotAssetsImage;
