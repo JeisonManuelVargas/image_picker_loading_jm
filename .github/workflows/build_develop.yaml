@@ -31,7 +31,7 @@ jobs:
 #############################################
 
   deploy_to_pub_get:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     needs: build_develop
 
