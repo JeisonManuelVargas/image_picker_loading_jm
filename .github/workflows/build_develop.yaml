@@ -8,6 +8,7 @@ on:
 jobs:
   build_develop:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout repository
@@ -32,12 +33,12 @@ jobs:
 
   deploy_to_pub_get:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 20
     needs: build_develop
 
     if: ${{ success() }}
 
     steps:
       - name: Publish
-        run: dart pub publish --force
+        run: flutter pub publish --force
 
