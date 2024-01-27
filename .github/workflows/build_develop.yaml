@@ -4,6 +4,14 @@ on:
   pull_request:
     branches: [ main ]
     type: [ opened, reopened ]
+    tags:
+      # must align with the tag-pattern configured on pub.dev, often just replace
+      #  with [0-9]+.[0-9]+.[0-9]+*
+      - 'v[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: 'v'
+      # If you prefer tags like '1.2.3', without the 'v' prefix, then use:
+      # - '[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: ''
+      # If your repository contains multiple packages consider a pattern like:
+      # - 'my_package_name-v[0-9]+.[0-9]+.[0-9]+*'
 
 jobs:
   build_develop:
@@ -39,6 +47,10 @@ jobs:
     if: ${{ success() }}
 
     steps:
+      - name: Install dependencies
+        run: dart pub get
+      # Here you can insert custom steps you need
+      # - run: dart tool/generate-code.dart
       - name: Publish
-        run: flutter pub publish
+        run: dart pub publish --force
 
