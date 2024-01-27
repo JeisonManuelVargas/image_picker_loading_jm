@@ -50,9 +50,9 @@ jobs:
 
     steps:
       - name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
       # Here you can insert custom steps you need
       # - run: dart tool/generate-code.dart
       - name: Publish
-        run: dart pub publish --force
+        run: flutter pub publish --force
 
