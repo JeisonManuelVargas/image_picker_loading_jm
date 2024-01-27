@@ -40,6 +40,8 @@ jobs:
 #############################################
 
   deploy_to_pub_get:
+    permissions:
+      id-token: write # Required for authentication using OIDC
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: build_develop
