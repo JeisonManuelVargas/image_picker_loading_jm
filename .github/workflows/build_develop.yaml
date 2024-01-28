@@ -1,0 +1,66 @@
+name: build develop branch
+
+on:
+  pull_request:
+    branches: [ main ]
+    type: [ opened, reopened ]
+    tags:
+      # must align with the tag-pattern configured on pub.dev, often just replace
+      #  with [0-9]+.[0-9]+.[0-9]+*
+      - 'v[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: 'v'
+      # If you prefer tags like '1.2.3', without the 'v' prefix, then use:
+      # - '[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: ''
+      # If your repository contains multiple packages consider a pattern like:
+      # - 'my_package_name-v[0-9]+.[0-9]+.[0-9]+*'
+
+jobs:
+  build_develop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.8'
+
+      - name: Flutter clean
+        run: flutter clean
+
+      - name: Flutter pub get
+        run: flutter pub get
+
+      - name: implemented test
+        run: flutter test
+#############################################
+# second jobs. deploy to pub.get
+#############################################
+
+  deploy_to_pub_get:
+    permissions:
+      id-token: write # Required for authentication using OIDC
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: build_develop
+
+    if: ${{ success() }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.8'
+
+      - name: Install dependencies
+        run: flutter pub get
+      # Here you can insert custom steps you need
+      # - run: dart tool/generate-code.dart
+      - name: Publish
+        run: flutter pub publish --force
+
