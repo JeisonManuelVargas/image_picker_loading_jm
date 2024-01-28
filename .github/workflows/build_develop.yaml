@@ -42,6 +42,13 @@ jobs:
   deploy_to_pub_get:
     permissions:
       id-token: write # Required for authentication using OIDC
+
+    uses: JeisonManuelVargas/image_picker_loading_jm/.github/workflows/build_develop.yml@v1
+    with:
+          # Specify the github actions deployment environment
+        environment: pub.dev
+          # working-directory: path/to/package/within/repository
+
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: build_develop
