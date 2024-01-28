@@ -1,0 +1,29 @@
+name: build develop branch
+
+on:
+  pull_request:
+    branches: [ develop ]
+    type: [ opened, reopened ]
+
+jobs:
+  build_develop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.8'
+
+      - name: Flutter clean
+        run: flutter clean
+
+      - name: Flutter pub get
+        run: flutter pub get
+
+      - name: implemented test
+        run: flutter test
