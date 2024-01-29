@@ -4,8 +4,8 @@ name: Publish Workflow
 
 on:
   workflow_dispatch:
-  release:
-    types: [published]
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 concurrency:
   group: ${{github.workflow}}-${{github.ref}}
