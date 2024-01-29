@@ -18,6 +18,17 @@ jobs:
         working-directory: .
     runs-on: "ubuntu-latest"
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.8'
+
+      - name: Install dependencies
+        run: flutter pub get
+
       - uses: actions/checkout@v4
       - uses: nikosportolos/dart_package@v0.2.1
         with:
