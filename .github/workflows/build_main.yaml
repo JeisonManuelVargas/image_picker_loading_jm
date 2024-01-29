@@ -6,12 +6,6 @@ on:
     type: [ opened, reopened ]
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+*'
-
-
-concurrency:
-  group: ${{github.workflow}}-${{github.ref}}
-  cancel-in-progress: true
-
 jobs:
   deploy_to_pub_get:
     permissions:
@@ -30,4 +24,8 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
+      # Here you can insert custom steps you need
+      # - run: dart tool/generate-code.dart
+      - name: Publish
+        run: flutter pub publish --skip-validation
 
