@@ -34,7 +34,4 @@ on:
       # - run: dart tool/generate-code.dart
       - name: Publish
         run: flutter pub publish --force
-        env:
-          PUBLISHER_EMAIL: ${{ secrets.PUBLISHER_EMAIL }}
-          PUBLISHER_TOKEN: ${{ secrets.PUBLISHER_TOKEN }}
 
