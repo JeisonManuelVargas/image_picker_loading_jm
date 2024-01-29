@@ -10,6 +10,6 @@ jobs:
   deploy_to_pub_get:
     permissions:
       id-token: write # Required for authentication using OIDC
-      uses: JeisonManuelVargas/image_picker_loading_jm/.github/workflows/build_main.yml@v1
+    uses: JeisonManuelVargas/image_picker_loading_jm/.github/workflows/build_main.yml@v1
       # with:
       #   working-directory: path/to/package/within/repository
