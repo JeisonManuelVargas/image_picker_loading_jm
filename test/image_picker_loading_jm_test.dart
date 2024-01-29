@@ -23,7 +23,7 @@ void main() {
         buildBody: (e, r) => Container(),
       );
     } on AssertionError catch (e) {
-      expect(e.message, "error image cannot be empty");
+      expect(e.message, "error image cannot be emptye");
     }
   });
 
