@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker_loading_jm/image_picker_loading_jm.dart';
 
+// test
+
 void main() {
   testWidgets('image empty test', (WidgetTester tester) async {
     try {
@@ -23,7 +25,7 @@ void main() {
         buildBody: (e, r) => Container(),
       );
     } on AssertionError catch (e) {
-      expect(e.message, "error image cannot be emptye");
+      expect(e.message, "error image cannot be empty");
     }
   });
 
