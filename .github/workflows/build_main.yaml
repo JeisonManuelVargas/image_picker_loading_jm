@@ -1,23 +1,18 @@
-# .github/workflows/publish.yml 
-# This workflow runs when publishing a Dart package on pub.dev.
-name: Publish Workflow
+name: build main branch
 
 on:
-  workflow_dispatch:
-  branches: [ main ]
-  release:
-    types: [published]
-
-concurrency:
-  group: ${{github.workflow}}-${{github.ref}}
-  cancel-in-progress: true
-
+  pull_request:
+    branches: [ main ]
+    type: [ opened, reopened ]
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
 jobs:
-  build:
-    defaults:
-      run:
-        working-directory: .
-    runs-on: "ubuntu-latest"
+  deploy_to_pub_get:
+    permissions:
+      id-token: write # Required for authentication using OIDC
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
       - uses: actions/checkout@v4
       - uses: nikosportolos/dart_package@v0.2.1
@@ -27,3 +22,4 @@ jobs:
           codecov_token: ${{ secrets.CODECOV_TOKEN }}
           publish: true
           pubdev_token: ${{ secrets.PUBDEV_TOKEN }}
+
