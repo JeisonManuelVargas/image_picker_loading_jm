@@ -1,33 +1,28 @@
-name: build main branch
+# .github/workflows/publish.yml
+# This workflow runs when publishing a Dart package on pub.dev.
+name: Publish Workflow
 
 on:
-  pull_request:
-    branches: [ main ]
-    type: [ opened, reopened ]
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+*'
+  workflow_dispatch:
+  release:
+    types: [published]
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
+
 jobs:
-  deploy_to_pub_get:
-    permissions:
-      id-token: write # Required for authentication using OIDC
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
+  build:
+    defaults:
+      run:
+        working-directory: .
+    runs-on: "ubuntu-latest"
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - uses: actions/checkout@v4
+      - uses: nikosportolos/dart_package@v0.2.1
         with:
-          flutter-version: '3.13.8'
-
-      - name: Install dependencies
-        run: flutter pub get
-      # Here you can insert custom steps you need
-      # - run: dart tool/generate-code.dart
-      - name: Publish package to pub.dev
-        run: flutter pub publish --force
-        env:
-          PUB_DEV_TOKEN: ${{ secrets.PUBDEV_TOKEN }}
-
+          coverage: true
+          codecov: true
+          codecov_token: ${{ secrets.CODECOV_TOKEN }}
+          publish: true
+          pubdev_token: ${{ secrets.PUBDEV_TOKEN }}
