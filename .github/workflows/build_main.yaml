@@ -4,6 +4,7 @@ name: Publish Workflow
 
 on:
   workflow_dispatch:
+  branches: [ main ]
   release:
     types: [published]
 
