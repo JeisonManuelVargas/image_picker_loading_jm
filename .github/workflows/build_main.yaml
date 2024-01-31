@@ -24,10 +24,9 @@ jobs:
       - name: Create pub-cache directory
         run: mkdir -p ~/.pub-cache/
 
-      - name: Set up Pub credentials
-        run: echo '//pub.dartlang.org:443/          *' > ~/.pub-cache/credentials
-        env:
-          PUB_DEV_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
+      - name: Log into pub.dev
+        run: |
+          dart pub login --refresh-token ${{ secrets.PUB_DEV_TOKEN }}
 
       - name: Get dependencies
         run: flutter pub get
