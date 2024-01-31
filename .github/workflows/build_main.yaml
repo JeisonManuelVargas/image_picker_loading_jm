@@ -18,10 +18,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.13.8'
+      - name: Install Flutter
+        run: |
+          git clone https://github.com/flutter/flutter.git /usr/local/flutter
+          export PATH="$PATH:/usr/local/flutter/bin"
 
       - name: Create pub-cache directory
         run: mkdir -p ~/.pub-cache/
