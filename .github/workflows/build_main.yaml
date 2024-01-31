@@ -18,6 +18,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Create pub-cache directory
+        run: mkdir -p ~/.pub-cache/
+
       - name: Set up Pub credentials
         run: echo '//pub.dartlang.org:443/          *' > ~/.pub-cache/credentials
         env:
