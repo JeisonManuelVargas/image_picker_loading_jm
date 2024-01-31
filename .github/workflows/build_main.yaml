@@ -15,19 +15,13 @@ jobs:
       image: dart:stable
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Install Flutter
         run: |
-          git clone https://github.com/flutter/flutter.git /usr/local/flutter
-          export PATH="$PATH:/usr/local/flutter/bin"
-
-      - name: Add Flutter to PATH
-        run: export PATH="$PATH:/usr/local/flutter/bin"
-        
-      - name: Verify Flutter installation
-        run: flutter --version
+          git clone https://github.com/flutter/flutter.git $GITHUB_WORKSPACE/flutter
+          echo "export PATH=\"$PATH:$GITHUB_WORKSPACE/flutter/bin\"" >> $GITHUB_ENV
 
       - name: Create pub-cache directory
         run: mkdir -p ~/.pub-cache/
@@ -35,11 +29,11 @@ jobs:
       - name: Set up Pub credentials
         run: echo '//pub.dartlang.org:443/          *' > ~/.pub-cache/credentials
         env:
-          PUB_DEV_TOKEN: ${{ secrets.PUBDEV_TOKEN }}
+          PUB_DEV_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
 
-      - name: Install dependencies
-        run: flutter pub get 
-        
-      - name: Publish
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Publish package to Pub.dev
         run: flutter pub publish --force
 
