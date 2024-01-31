@@ -3,16 +3,11 @@ name: build main branch
 on:
   pull_request:
     branches: [ main ]
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+*'
+
 jobs:
   deploy_to_pub_get:
-    permissions:
-      id-token: write # Required for authentication using OIDC
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    container:
-      image: dart:stable
 
     steps:
       - name: Checkout repository
@@ -22,7 +17,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.13.8'
-          
+
       - name: Get dependencies
         run: flutter pub get
 
