@@ -21,12 +21,9 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Create pub-cache directory
-        run: mkdir -p ~/.pub-cache/
-
       - name: Log into pub.dev
         run: |
-          dart pub login --refresh-token ${{ secrets.PUB_DEV_TOKEN }}
+          dart pub token add https://other-package-repo.com/ --env-var ${{ secrets.PUB_DEV_TOKEN }}
 
       - name: Get dependencies
         run: flutter pub get
