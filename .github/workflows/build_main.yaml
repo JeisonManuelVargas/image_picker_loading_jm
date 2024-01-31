@@ -22,12 +22,12 @@ jobs:
         run: |
           git clone https://github.com/flutter/flutter.git /usr/local/flutter
           export PATH="$PATH:/usr/local/flutter/bin"
-        
-      - name: Verify Flutter installation
-        run: flutter --version
 
       - name: Add Flutter to PATH
         run: export PATH="$PATH:/usr/local/flutter/bin"
+        
+      - name: Verify Flutter installation
+        run: flutter --version
 
       - name: Create pub-cache directory
         run: mkdir -p ~/.pub-cache/
