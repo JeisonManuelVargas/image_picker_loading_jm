@@ -32,8 +32,8 @@ jobs:
           PUB_DEV_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
 
       - name: Get dependencies
-        run: flutter pub get
+        run: dart pub get
 
       - name: Publish package to Pub.dev
-        run: flutter pub publish --force
+        run: dart pub publish --force
 
