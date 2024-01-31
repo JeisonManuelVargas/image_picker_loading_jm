@@ -3,3 +3,7 @@
 
 ## 0.0.2
 - change validation network image
+
+## 0.0.8
+- implemented unit test
+
