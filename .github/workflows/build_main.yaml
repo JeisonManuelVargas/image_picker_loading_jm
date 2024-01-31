@@ -3,7 +3,6 @@ name: build main branch
 on:
   pull_request:
     branches: [ main ]
-    type: [ opened, reopened ]
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+*'
 jobs:
@@ -12,22 +11,21 @@ jobs:
       id-token: write # Required for authentication using OIDC
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    container:
+      image: dart:stable
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.13.8'
+      - name: Set up Pub credentials
+        run: echo '//pub.dartlang.org:443/
+        env:
+          PUB_DEV_TOKEN: ${{ secrets.PUBDEV_TOKEN }}
 
       - name: Install dependencies
-        run: flutter pub get
-      # Here you can insert custom steps you need
-      # - run: dart tool/generate-code.dart
+        run: flutter pub get 
+        
       - name: Publish
         run: flutter pub publish --force
-        env: 
-          PUB_DEV_TOKEN: ${{ secrets.PUBDEV_TOKEN }}
 
