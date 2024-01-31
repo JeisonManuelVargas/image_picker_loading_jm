@@ -18,10 +18,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Flutter
-        run: |
-          git clone https://github.com/flutter/flutter.git $GITHUB_WORKSPACE/flutter
-          echo "export PATH=\"$PATH:$GITHUB_WORKSPACE/flutter/bin\"" >> $GITHUB_ENV
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.8'
 
       - name: Create pub-cache directory
         run: mkdir -p ~/.pub-cache/
@@ -32,8 +32,8 @@ jobs:
           PUB_DEV_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
 
       - name: Get dependencies
-        run: dart pub get
+        run: flutter pub get
 
       - name: Publish package to Pub.dev
-        run: dart pub publish --force
+        run: flutter pub publish --force
 
