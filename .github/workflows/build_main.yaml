@@ -21,3 +21,17 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
+      - name: Create pub-cache directory
+        run: mkdir -p ~/.pub-cache/
+
+      - name: Set up Pub credentials
+        run: echo '//pub.dartlang.org:443/          *' > ~/.pub-cache/credentials
+        env:
+          PUB_DEV_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Publish package to Pub.dev
+        run: flutter pub publish --force
+
