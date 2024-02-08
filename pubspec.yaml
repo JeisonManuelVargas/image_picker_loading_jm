@@ -3,7 +3,7 @@ description: This package allows us to easily use the libraries already created 
 version: 0.0.9
 
 environment:
-  sdk: '>=2.19.2 <3.0.0'
+  sdk: '>=2.19.2 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
