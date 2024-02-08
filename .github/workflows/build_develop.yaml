@@ -3,6 +3,7 @@ name: build develop branch
 on:
   pull_request:
     branches: [ develop ]
+    type: [ opened, reopened ]
 
 jobs:
   build_develop:
