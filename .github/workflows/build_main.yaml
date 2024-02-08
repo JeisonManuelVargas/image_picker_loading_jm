@@ -32,7 +32,7 @@ jobs:
       # Here you can insert custom steps you need
       # - run: dart tool/generate-code.dart
       - name: Check Publish Warnings
-        run: dart pub publish --dry-run
+        run: flutter pub publish --dry-run
 
       - name: Publish
         uses: k-paxian/dart-package-publisher@v1.5.1
