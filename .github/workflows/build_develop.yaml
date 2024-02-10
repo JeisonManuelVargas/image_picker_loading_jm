@@ -21,6 +21,9 @@ jobs:
       - name: Flutter clean
         run: flutter clean
 
+      - name: Format code
+        run: dart format --fix .
+
       - name: Flutter pub get
         run: flutter pub get
 

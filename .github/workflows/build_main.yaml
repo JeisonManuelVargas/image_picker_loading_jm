@@ -5,33 +5,27 @@ on:
     branches: [ main ]
 
 jobs:
-  deploy_to_pub_get:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Flutter
+      - uses: actions/checkout@v2
+      - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.13.8'
-
-      - name: Get dependencies
+          flutter-version: '3.3.3'
+      - name: Install dependencies
         run: flutter pub get
-
-      - name: Create pub-cache directory
-        run: mkdir -p ~/.pub-cache/
-
-      - name: Set up Pub credentials
-        run: echo '//pub.dartlang.org:443/          *' > ~/.pub-cache/credentials
-        env:
-          PUB_DEV_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
-
-      - name: Get dependencies
-        run: flutter pub get
-
-      - name: Publish package to Pub.dev
-        run: flutter pub publish -f
-
+      - name: Analyze
+        run: flutter analyze
+      - name: Run tests
+        run: flutter test
+      - name: Format code
+        run: dart format --fix .
+      - name: Check Publish Warnings
+        run: dart pub publish --dry-run
+      - name: Publish
+        uses: k-paxian/dart-package-publisher@v1.5.1
+        with:
+          credentialJson: ${{ secrets.PUB_DEV_TOKEN }}
+          flutter: true
+          skipTests: true
