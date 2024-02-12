@@ -3,7 +3,6 @@ name: build develop branch
 on:
   pull_request:
     branches: [ develop ]
-    type: [ opened, reopened ]
 
 jobs:
   build_develop:
@@ -21,6 +20,9 @@ jobs:
 
       - name: Flutter clean
         run: flutter clean
+
+      - name: Format code
+        run: dart format --fix .
 
       - name: Flutter pub get
         run: flutter pub get

@@ -3,38 +3,39 @@ name: build main branch
 on:
   pull_request:
     branches: [ main ]
-    type: [ opened, reopened ]
-    tags:
-      # must align with the tag-pattern configured on pub.dev, often just replace
-      #  with [0-9]+.[0-9]+.[0-9]+*
-      - 'v[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: 'v'
-      # If you prefer tags like '1.2.3', without the 'v' prefix, then use:
-      # - '[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: ''
-      # If your repository contains multiple packages consider a pattern like:
-      # - 'my_package_name-v[0-9]+.[0-9]+.[0-9]+*'
 
-  deploy_to_pub_get:
-    permissions:
-      id-token: write # Required for authentication using OIDC
+jobs:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.13.8'
 
+      - name: Flutter clean
+        run: flutter clean
+
       - name: Install dependencies
         run: flutter pub get
-      # Here you can insert custom steps you need
-      # - run: dart tool/generate-code.dart
-      - name: Publish
-        run: flutter pub publish --force
-        env:
-          PUBLISHER_EMAIL: ${{ secrets.PUBLISHER_EMAIL }}
-          PUBLISHER_TOKEN: ${{ secrets.PUBLISHER_TOKEN }}
 
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Format code
+        run: dart format --fix .
+
+      - name: Check Publish Warnings
+        run: flutter pub publish --dry-run
+
+      - name: Publish
+        uses: k-paxian/dart-package-publisher@v1.5.1
+        with:
+          credentialJson: ${{ secrets.PUB_DEV_TOKEN }}
+          flutter: true
+          skipTests: true
